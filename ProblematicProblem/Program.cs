@@ -1,166 +1,109 @@
-﻿using System;
+﻿System;
+using System.Collections.Generic
+using System.Threading;
 
-namespace ProblematicProblem
+ProblematicProblem
 {
-    class Program
+    Program class
     {
+        Random rng;        
+        static bool cont = true;
+        static List<string> activities = new List<string>() { "Movies", "Paintball", "Bowling", "Lazer Tag", "LAN Party", "Hiking", "Axe Throwing", "Wine Tasting" }
+
         static void Main(string[] args)
         {
-            string playerChoice, cpuChoice;
-
-            int randomNum;
-
-            bool playagain = true;
-
-            Console.WriteLine("Lets play paper, rock, scissors. Fun fact: (In Japanese culture they call this game Jan-Ken-Pon!)\nWe're going to a score of 3!");
+            Console.Write("Hello, welcome to the random activity generator! \nWould you like to generate a random activity? yes/no: ")
+            bool cont = bool.Parse(Console.ReadLine());
 
             Console.WriteLine();
 
-            while (playagain == true)
+            Console.Write("We are going to need your information first! What is your name? ");
+            string userName = Console.ReadLine();
+
+            Console.WriteLine();
+
+            Console.Write("What is your age? ");
+            int userAge = Console.ReadLine();
+
+            Console.WriteLine();
+
+            Console.Write("Would you like to see the current list of activities? Sure/No thanks: ");
+            bool seeList = bool.Parse(Console.ReadLine());
+
+            if (seeList)
             {
-                int playerScore = 0;
-
-                int cpuScore = 0;
-
-                while (playerScore < 3 && cpuScore < 3)
+                foreach (string activity in activities)
                 {
-                    Console.Write("Please type: paper, rock, or scissors:   ");
-
-                    playerChoice = Console.ReadLine();
-
-                    playerChoice = playerChoice.ToLower();
-
-                    while (playerChoice != "paper" && playerChoice != "rock" && playerChoice != "scissors")
-                    {
-                        Console.Write("Please choose: paper, rock, or scissors   ");
-
-                        playerChoice = Console.ReadLine();
-
-                        playerChoice = playerChoice.ToLower();
-                    }
-
-                    Random rnd = new Random();
-
-                    randomNum = rnd.Next(1, 4);
-
-                    switch (randomNum)
-                    {
-                        case 1:
-                            cpuChoice = "paper";
-
-                            Console.Write("The CPU chose Paper!");
-
-                            Console.WriteLine();
-
-                            if (playerChoice == "paper")
-                            {
-                                Console.WriteLine("DRAW!");
-                            }
-
-                            else if (playerChoice == "rock")
-                            {
-                                Console.WriteLine("YOU LOSE!! :'(");
-                                cpuScore++;
-                            }
-
-                            else if (playerChoice == "scissors")
-                            {
-                                Console.WriteLine("YOU WIN!!");
-                                playerScore++;
-                            }
-                            break;
-
-                        case 2:
-                            cpuChoice = "rock";
-                            Console.WriteLine("The CPU chose Rock!");
-
-                            Console.WriteLine();
-
-                            if (playerChoice == "paper")
-                            {
-                                Console.WriteLine("YOU WIN!!");
-                                playerScore++;
-                            }
-
-                            else if (playerChoice == "rock")
-                            {
-                                Console.WriteLine("DRAW!!");
-                            }
-
-                            else if (playerChoice == "scissors")
-                            {
-                                Console.WriteLine("YOU LOSE :'(!!");
-                                cpuScore++;
-                            }
-                            break;
-
-                        case 3:
-                            cpuChoice = "Scissors";
-
-                            Console.WriteLine("The CPU chose Scissors!");
-
-                            Console.WriteLine();
-
-                            if (playerChoice == "paper")
-                            {
-                                Console.WriteLine("YOU LOSE!!");
-                                cpuScore++;
-                            }
-
-                            else if (playerChoice == "rock")
-                            {
-                                Console.WriteLine("YOU WIN!!");
-                                playerScore++;
-                            }
-
-                            else if (playerChoice == "scissors")
-                            {
-                                Console.WriteLine("DRAW!!");
-                            }
-                            break;
-
-                        default:
-                            Console.WriteLine("INVALID ENTRY!!");
-                            break;
-                    }
-
-                    Console.WriteLine("\nScores:\tPlayer:\t{0}\tCPU:\t{1}", playerScore, cpuScore);
-
-                    if (playerScore == 3)
-                    {
-                        Console.WriteLine("Player 1 Wins!!");
-                    }
-                    else if (cpuScore == 3)
-                    {
-                        Console.WriteLine("CPU Wins!! TOO BAD!");
-                    }
+                    Console.Write($"{activity} ");
+                    Thread.Sleep(250);
                 }
 
-                Console.WriteLine("Play Again? (y/n)");
+                Console.WriteLine();
+                Console.Write("Would you like to add any activities before we generate one? yes/no: ");
+                bool addToList = bool.Parse(Console.ReadLine());
+                Console.WriteLine();
 
-                string answer = Console.ReadLine();
-
-                answer = answer.ToLower();
-
-                while (answer != "y" && answer != "n")
+                while (addToList)
                 {
-                    Console.Write("Please enter a 'y' or a 'n'   ");
-                    answer = Console.ReadLine();
+                    Console.Write("What would you like to add? ");
+                    string userAddition = Console.ReadLine();
+
+                    activities.Add(userAddition);
+
+                    foreach (string activity activities)
+                    {
+                        Console.Write($"{activity} ");
+                        Thread.Sleep(250);
+                    }
+
+                    Console.WriteLine();
+                    Console.WriteLine("Would you like to add more? yes/no: ");
+                    string addToList = bool.Parse(Console.ReadLine());
+                }
+            }
+            
+            while (cont)
+            {
+                Console.Write("Connecting to the database");
+
+                for (int i = 0; i < 10; i++)
+                {
+                    Console.Write(". ");
+                    Thread.Sleep(500);
                 }
 
-                if (answer == "y")
+                Console.WriteLine()
+
+                Console.Write("Choosing your random activity");
+
+                for (int i = 0; i < 9; i++)
                 {
-                    playagain = true;
-                    Console.Clear();
+                    Console.Write(". ");
+                    Thread.Sleep(500);
                 }
-                else
+
+                Console.WriteLine()
+
+                int randomNumber = rng.Next(activities.Count);
+
+                string randomActivity = activities[randomNumber]
+
+                if (userAge < 21 && randomActivity == "Wine Tasting")
                 {
-                    Console.WriteLine("Thanks for playing!!");
-                    Console.Write("Press Enter to continue...");
-                    Console.ReadLine();
-                    playagain = false;
+                    Console.WriteLine($"Oh no! Looks like you are too young to do {randomActivity}");
+                    Console.WriteLine("Pick something else!");
+
+                    activities.Remove(randomActivity);
+
+                    string randomNumber = rng.Next(activities.Count);
+
+                    string randomActivity = activities[randomNumber];
                 }
+
+                Console.Write($"Ah got it! {randomActivity}, your random activity is: {userName}! Is this ok or do you want to grab another activity? Keep/Redo: ")
+                ConsoleWriteLine();
+                bool cont = bool.Parse(Console.ReadLine());
             }
         }
     }
-}
+}}
